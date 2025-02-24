@@ -52,17 +52,17 @@ else
 	exit 1
 fi
 
-
+BASE_PATH="$(dirname "$(realpath "$0")")"
+cd "$BASE_PATH"
 
 BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel" "stow")
 DESKTOP=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
-ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
-
-C_DEVELOPMENT=("clang")
 
 case "$NAME" in
 	"Arch Linux")
-		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}"
+		DEV=("clang" "python" "rust")
+		ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
+		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}" "${DEV[@]}"
 		# Install paru
 		if ! pacman -Q "paru" &>/dev/null; then
 			git clone https://aur.archlinux.org/paru.git
@@ -80,10 +80,15 @@ case "$NAME" in
 esac
 
 # Set the default editor in the user's bash configuration.
-add_line "$HOME/.bashrc" "export EDITOR=nvim"
-add_line "$HOME/.bashrc" "alias vim='nvim'"
-add_line "$HOME/.bashrc" "alias ivm='nvim'"
-add_line "$HOME/.bashrc" "alias vi='nvim'"
+BASHRC="$HOME/.bashrc"
+add_line "$BASHRC" "export EDITOR=nvim"
+add_line "$BASHRC" 'export PATH="$HOME/.local/bin:$PATH"'
+
+add_line "$BASHRC" "alias vim='nvim'"
+add_line "$BASHRC" "alias ivm='nvim'"
+add_line "$BASHRC" "alias vi='nvim'"
+
+
 
 # Configure git only if the global gitconfig doesn't exist.
 if [[ ! -f "$HOME/.gitconfig" ]]; then
