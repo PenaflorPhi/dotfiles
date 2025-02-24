@@ -34,34 +34,6 @@ ensure_dir() {
 	fi
 }
 
-# If the target directory exists, back it up before creating a symlink.
-move_dir() {
-	local src_dir="$1"
-	local dest_dir="$2"
-
-    # Create destination directory if it doesn't exist
-    mkdir -pv "$dest_dir"
-
-    # Loop over each item in the source directory
-    for item in "$src_dir"/*; do
-	    # Skip if no items exist in source directory
-	    [[ -e "$item" ]] || continue
-
-	    local item_name
-	    item_name=$(basename "$item")
-	    local dest_item="$dest_dir/$item_name"
-	    echo "DESTINATION $dest_item"
-
-	# If destination item exists, back it up by renaming it
-	if [[ -e "$dest_item" ]]; then
-		mv -v "$dest_item" "${dest_item}.old"
-	fi
-
-	# Move the item to the destination
-	mv -v "$item" "$dest_dir"
-done
-}
-
 # Load OS information from /etc/os-release.
 if [[ -f /etc/os-release ]]; then
 	source /etc/os-release
@@ -94,7 +66,3 @@ if [[ ! -f "$HOME/.gitconfig" ]]; then
 	git config --global user.email "$git_usermail"
 fi
 
-
-
-move_dir "config" "$HOME/.config"
-move_dir "pictures" "$HOME/Pictures"
