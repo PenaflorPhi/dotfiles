@@ -66,7 +66,7 @@ DESKTOP=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
 case "$NAME" in
 	"Arch Linux")
 		echo "Detected Arch Linux. Installing packages..."
-		DEV=("clang" "python" "rust" "lua" "luarocks")
+		DEV=("clang" "python" "rust" "lua" "luarocks" "npm" "go" "dotnet-host" "dotnet-runtime")
 		ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
 		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}" "${DEV[@]}"
 
