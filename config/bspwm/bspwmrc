@@ -1,0 +1,34 @@
+#! /bin/sh
+
+xsetroot -cursor_name left_ptr &
+setxkbmap -layout "us,latam" -option "grp:alt_shift_toggle" &
+wmname LG3D
+eval "$(hub alias -s)"
+
+pkill sxhkd
+sxhkd &
+pkill polybar
+polybar &
+
+pgrep -x sxhkd >/dev/null || sxhkd &
+
+feh --bg-scale --no-fehbg /home/"$USER"/Pictures/Wallpapers/Wallpaper.jpg
+
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+
+bspc config border_width 2
+bspc config window_gap 1
+
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config top_padding false
+
+bspc config active_border_color "#1A1B26"
+bspc config focused_border_color "#7AA2F7"
+bspc config urgent_border_color "#F7768E"
+bspc config presel_border_color "#E0AF68"
+
+bspc rule -a firefox desktop='^1'
+bspc rule -a Brave-browser desktop='^5'
+bspc rule -a qBittorrent desktop='^10'
