@@ -1,6 +1,6 @@
 # 🚀 Personal Linux Setup Script
 
-This is my personal setup script for configuring a fresh Linux installation with essential tools, dotfiles, and system settings. Designed for Arch Linux. 🐧
+This is my personal setup script for configuring a fresh Linux installation with essential tools, dotfiles, and system settings. 🐧
 
 ## 📦 Installed Packages
 
