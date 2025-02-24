@@ -40,12 +40,6 @@ This is my personal setup script for configuring a fresh Linux installation with
 - noto-fonts-extra
 - ttf-victor-mono-nerd
 
-## ⚙️ Features
-- Installs system packages
-- Sets up my dotfiles using GNU Stow
-- Configures Git with user input
-- Ensures required directories exist
-
 ## 🛠️ Usage
 ```bash
 install.sh
