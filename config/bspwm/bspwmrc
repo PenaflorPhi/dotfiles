@@ -12,7 +12,7 @@ polybar &
 
 pgrep -x sxhkd >/dev/null || sxhkd &
 
-feh --bg-scale --no-fehbg /home/"$USER"/Pictures/Wallpapers/Wallpaper.jpg
+feh --bg-scale --no-fehbg "$HOME"/Pictures/wallpaper.*
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 

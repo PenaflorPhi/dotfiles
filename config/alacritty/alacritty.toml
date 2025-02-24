@@ -3,15 +3,18 @@ opacity=0.9
 
 [font]
 size=12
-
 [font.normal]
 family="ComicShannsMono Nerd Font Mono"
-
 [font.bold]
 family="ComicShannsMono Nerd Font Mono"
 # family="GohuFont 14 Nerd Font"
-
 [font.italic]
 family="JetBrainsMono Nerd Font"
 
+[selection]
+save_to_clipboard=true
 
+[cursor]
+[cursor.style]
+shape="Block"
+blinking="On"

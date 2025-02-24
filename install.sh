@@ -34,6 +34,16 @@ ensure_dir() {
 	fi
 }
 
+stow_dir() {
+	local target_dir="$1"
+	local source_dir="$2"
+
+	ensure_dir "$target_dir"
+	stow --adopt -t "$target_dir" "$source_dir"
+
+}
+
+
 # Load OS information from /etc/os-release.
 if [[ -f /etc/os-release ]]; then
 	source /etc/os-release
@@ -44,7 +54,7 @@ fi
 
 
 
-BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel")
+BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel" "stow")
 DESKTOP=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
 ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
 
@@ -63,9 +73,6 @@ add_line "$HOME/.bashrc" "alias vim='nvim'"
 add_line "$HOME/.bashrc" "alias ivm='nvim'"
 add_line "$HOME/.bashrc" "alias vi='nvim'"
 
-source "$HOME/.bashrc"
-
-
 # Configure git only if the global gitconfig doesn't exist.
 if [[ ! -f "$HOME/.gitconfig" ]]; then
 	echo "------------- Git config -------------"
@@ -75,3 +82,8 @@ if [[ ! -f "$HOME/.gitconfig" ]]; then
 	git config --global user.email "$git_usermail"
 fi
 
+
+# Move confistow -t "$HOME/.config" config
+stow_dir "$HOME/.config" config
+stow_dir "$HOME/Pictures" pictures
+stow_dir "$HOME/.local/bin" bin
