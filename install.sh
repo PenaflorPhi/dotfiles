@@ -58,9 +58,21 @@ BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel" "stow")
 DESKTOP=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
 ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
 
+C_DEVELOPMENT=("clang")
+
 case "$NAME" in
 	"Arch Linux")
 		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}"
+		# Install paru
+		if ! pacman -Q "paru" &>/dev/null; then
+			git clone https://aur.archlinux.org/paru.git
+			cd paru
+			makepkg -sic
+			cd ..
+			rm -rf paru
+		fi
+
+
 		;;
 	*)
 		echo "$NAME is currently unsupported."
@@ -87,3 +99,4 @@ fi
 stow_dir "$HOME/.config" config
 stow_dir "$HOME/Pictures" pictures
 stow_dir "$HOME/.local/bin" bin
+stow_dir "$HOME/" home
