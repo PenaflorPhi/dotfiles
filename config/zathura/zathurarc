@@ -1,0 +1,33 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+# One page per row by default
+set pages-per-row 1
+
+#zoom settings
+set zoom-min 5
+set guioptions ""
+
+set render-loading "false"
+
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+# Recolor
+# Gruvbox Bright
+set recolor false
+set recolor-lightcolor \#FBF1C7
+set default-bg \#282828
+set recolor-darkcolor \#000000
+set highlight-color \#749bec
+set highlight-active-color \#749bec
+set recolor-keephue
+
+set selection-clipboard clipboard
+set selection-notification false
+
+set sandbox none
