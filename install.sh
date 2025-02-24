@@ -42,12 +42,15 @@ else
 	exit 1
 fi
 
-utilities=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli")
-desktop=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
+
+
+BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel")
+DESKTOP=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
+ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
 
 case "$NAME" in
 	"Arch Linux")
-		sudo pacman -Syyyu --needed "${utilities[@]}" "${desktop[@]}"
+		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}"
 		;;
 	*)
 		echo "$NAME is currently unsupported."
@@ -56,6 +59,12 @@ esac
 
 # Set the default editor in the user's bash configuration.
 add_line "$HOME/.bashrc" "export EDITOR=nvim"
+add_line "$HOME/.bashrc" "alias vim='nvim'"
+add_line "$HOME/.bashrc" "alias ivm='nvim'"
+add_line "$HOME/.bashrc" "alias vi='nvim'"
+
+source "$HOME/.bashrc"
+
 
 # Configure git only if the global gitconfig doesn't exist.
 if [[ ! -f "$HOME/.gitconfig" ]]; then
