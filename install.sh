@@ -53,15 +53,20 @@ else
 	exit 1
 fi
 
+# Get correct path
+DIR="$(dirname "$(realpath "$0")")"
+cd "$DIR"
+
+
 # Define package lists.
-BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel" "stow")
+BASE=("neovim" "git" "curl" "wget" "ranger" "btop" "github-cli" "xsel" "stow" "less" "tar" "ripgrep")
 DESKTOP=("bspwm" "sxhkd" "feh" "polybar" "rofi" "dunst" "alacritty")
 
 # Detect OS and install packages.
 case "$NAME" in
 	"Arch Linux")
 		echo "Detected Arch Linux. Installing packages..."
-		DEV=("clang" "python" "rust")
+		DEV=("clang" "python" "rust" "lua" "luarocks")
 		ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
 		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}" "${DEV[@]}"
 
