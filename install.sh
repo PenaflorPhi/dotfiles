@@ -45,6 +45,7 @@ stow_dir() {
 	stow --adopt -t "$target_dir" "$source_dir"
 }
 
+
 # Load OS information.
 if [[ -f /etc/os-release ]]; then
 	source /etc/os-release
@@ -68,7 +69,7 @@ case "$NAME" in
 		echo "Detected Arch Linux. Installing packages..."
 		DEV=("clang" "python" "rust" "lua" "luarocks" "npm" "go" "dotnet-host" "dotnet-runtime")
 		ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
-        RANGER=("transmission-cli", "unrar")
+        RANGER=("ueberzug" "transmission-cli" "unrar")
 		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}" "${DEV[@]}" "${RANGER[@]}"
 
 	# Install paru if missing.
@@ -86,6 +87,24 @@ case "$NAME" in
 	exit 1
 	;;
 esac
+
+
+
+# Changes vi and vim for nvim
+sudo bash -c 'create_nvim_symlink() {
+    install -dm755 /usr/bin
+
+    echo -e "#!/bin/sh\nexec nvim -e \"\$@\""  > /usr/bin/ex
+    echo -e "#!/bin/sh\nexec nvim -R \"\$@\""  > /usr/bin/view
+    echo -e "#!/bin/sh\nexec nvim -d \"\$@\""  > /usr/bin/vimdiff
+    chmod 755 /usr/bin/ex /usr/bin/view /usr/bin/vimdiff
+
+    for _link in edit vedit vi vim; do
+      ln -sf /usr/bin/nvim /usr/bin/$_link
+    done
+}; create_nvim_symlink'
+
+
 
 # Configure shell environment.
 BASHRC="$HOME/.bashrc"
