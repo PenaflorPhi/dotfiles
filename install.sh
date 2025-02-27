@@ -68,7 +68,8 @@ case "$NAME" in
 		echo "Detected Arch Linux. Installing packages..."
 		DEV=("clang" "python" "rust" "lua" "luarocks" "npm" "go" "dotnet-host" "dotnet-runtime")
 		ARCH_FONTS=("otf-comicshanns-nerd" "ttf-gohu-nerd" "ttf-iosevka-nerd" "ttf-jetbrains-mono-nerd" "ttf-noto-nerd" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "ttf-victor-mono-nerd")
-		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}" "${DEV[@]}"
+        RANGER=("transmission-cli", "unrar")
+		sudo pacman -Syyyu --needed "${BASE[@]}" "${DESKTOP[@]}" "${ARCH_FONTS[@]}" "${DEV[@]}" "${RANGER[@]}"
 
 	# Install paru if missing.
 	if ! pacman -Q paru &>/dev/null; then
@@ -102,6 +103,7 @@ if [[ ! -f "$HOME/.gitconfig" ]]; then
 	git_usermail=$(get_user_input "Enter your email: ")
 	git config --global user.name "$git_username"
 	git config --global user.email "$git_usermail"
+    git config --global init.defaultBranch main
 fi
 
 # Stow configuration files.
@@ -112,4 +114,3 @@ stow_dir "$HOME/.local/bin" bin
 stow_dir "$HOME/" home
 
 echo "Setup complete!"
-
