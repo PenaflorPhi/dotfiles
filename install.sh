@@ -54,6 +54,7 @@ else
 	exit 1
 fi
 
+BASHRC="$HOME/.bashrc"
 # Get correct path
 DIR="$(dirname "$(realpath "$0")")"
 cd "$DIR"
@@ -81,7 +82,10 @@ case "$NAME" in
 		cd ..
 		rm -rf paru
 	fi
+
+    add_line "$BASHRC" "alias paru='paru --bottomup'"
 	;;
+
 *)
 	echo "Unsupported OS: $NAME"
 	exit 1
@@ -107,7 +111,6 @@ sudo bash -c 'create_nvim_symlink() {
 
 
 # Configure shell environment.
-BASHRC="$HOME/.bashrc"
 echo "Configuring shell environment..."
 add_line "$BASHRC" "export EDITOR=nvim"
 add_line "$BASHRC" 'export PATH="$HOME/.local/bin:$PATH"'
